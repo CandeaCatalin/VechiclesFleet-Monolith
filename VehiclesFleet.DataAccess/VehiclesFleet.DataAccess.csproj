@@ -4,9 +4,11 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>VehiclesFleet.DataAccess</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.17" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.17" />
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     </ItemGroup>

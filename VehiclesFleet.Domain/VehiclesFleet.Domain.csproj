@@ -4,7 +4,11 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>annotations</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>VechiclesFleet.Domain</RootNamespace>
+        <RootNamespace>VehiclesFleet.Domain</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.9.0" />
+    </ItemGroup>
 
 </Project>

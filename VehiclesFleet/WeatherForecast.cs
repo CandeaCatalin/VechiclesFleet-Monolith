@@ -1,4 +1,4 @@
-namespace VechiclesFleet;
+namespace VehiclesFleet;
 
 public class WeatherForecast
 {

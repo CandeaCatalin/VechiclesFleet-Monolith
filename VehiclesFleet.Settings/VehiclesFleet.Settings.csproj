@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>annotations</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>VechiclesFleet.Constants</RootNamespace>
+        <RootNamespace>VehiclesFleet.Constants</RootNamespace>
     </PropertyGroup>
 
 </Project>

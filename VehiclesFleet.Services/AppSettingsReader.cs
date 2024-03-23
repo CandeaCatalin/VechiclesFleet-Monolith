@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
+using VehiclesFleet.Services.Contracts;
 
-namespace VechiclesFleet.Services.Contracts;
+namespace VehiclesFleet.Services;
 
 public class AppSettingsReader : IAppSettingsReader
 {

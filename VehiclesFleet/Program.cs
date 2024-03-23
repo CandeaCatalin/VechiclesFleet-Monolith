@@ -1,5 +1,5 @@
-using VechiclesFleet.DI;
-using VechiclesFleet.Middleware;
+using VehiclesFleet.DI;
+using VehiclesFleet.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

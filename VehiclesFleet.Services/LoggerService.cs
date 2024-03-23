@@ -1,6 +1,6 @@
-using VechiclesFleet.Services.Contracts;
+using VehiclesFleet.Services.Contracts;
 
-namespace VechiclesFleet.Services;
+namespace VehiclesFleet.Services;
 
 public class LoggerService: ILoggerService
 {

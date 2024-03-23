@@ -1,4 +1,4 @@
-namespace VechiclesFleet.Services.Contracts;
+namespace VehiclesFleet.Services.Contracts;
 
 public interface IAppSettingsReader
 {

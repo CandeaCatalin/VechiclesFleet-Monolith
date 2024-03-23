@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesFleet.Settings", "V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesFleet.DataAccess", "VehiclesFleet.DataAccess\VehiclesFleet.DataAccess.csproj", "{B7AB4BE0-3528-481D-ABCC-9FE403D272A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesFleet.Business", "VehiclesFleet.Business\VehiclesFleet.Business.csproj", "{5A1A5A25-F7D7-4206-AA42-0E88286CE6B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesFleet.Repository", "VehiclesFleet.Repository\VehiclesFleet.Repository.csproj", "{B33E2F21-FFBA-4B1E-A96D-A856C10E8627}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{B7AB4BE0-3528-481D-ABCC-9FE403D272A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7AB4BE0-3528-481D-ABCC-9FE403D272A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7AB4BE0-3528-481D-ABCC-9FE403D272A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1A5A25-F7D7-4206-AA42-0E88286CE6B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1A5A25-F7D7-4206-AA42-0E88286CE6B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1A5A25-F7D7-4206-AA42-0E88286CE6B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1A5A25-F7D7-4206-AA42-0E88286CE6B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B33E2F21-FFBA-4B1E-A96D-A856C10E8627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33E2F21-FFBA-4B1E-A96D-A856C10E8627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33E2F21-FFBA-4B1E-A96D-A856C10E8627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33E2F21-FFBA-4B1E-A96D-A856C10E8627}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

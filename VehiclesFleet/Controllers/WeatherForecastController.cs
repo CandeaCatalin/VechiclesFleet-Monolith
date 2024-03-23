@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace VechiclesFleet.Controllers;
+namespace VehiclesFleet.Controllers;
 
 [ApiController]
 [Route("[controller]")]

@@ -2,10 +2,10 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http.Extensions;
-using VechiclesFleet.Domain.CustomExceptions;
-using VechiclesFleet.Services.Contracts;
+using VehiclesFleet.Domain.CustomExceptions;
+using VehiclesFleet.Services.Contracts;
 
-namespace VechiclesFleet.Middleware;
+namespace VehiclesFleet.Middleware;
 
 public class ExceptionHandlerMiddleware
 {

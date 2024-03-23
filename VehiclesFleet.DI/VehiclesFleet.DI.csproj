@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>annotations</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>VechiclesFleet.DI</RootNamespace>
+        <RootNamespace>VehiclesFleet.DI</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\VehiclesFleet.Business\VehiclesFleet.Business.csproj" />
       <ProjectReference Include="..\VehiclesFleet.DataAccess\VehiclesFleet.DataAccess.csproj" />
+      <ProjectReference Include="..\VehiclesFleet.Repository\VehiclesFleet.Repository.csproj" />
       <ProjectReference Include="..\VehiclesFleet.Services\VehiclesFleet.Services.csproj" />
       <ProjectReference Include="..\VehiclesFleet.Settings\VehiclesFleet.Settings.csproj" />
     </ItemGroup>

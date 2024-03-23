@@ -1,16 +1,21 @@
 ﻿using System.Text.Json;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
-using VechiclesFleet.Constants;
-using VechiclesFleet.Services;
-using VechiclesFleet.Services.Contracts;
+using VehiclesFleet.BusinessLogic;
+using VehiclesFleet.BusinessLogic.Contracts;
+using VehiclesFleet.Constants;
 using VehiclesFleet.DataAccess;
+using VehiclesFleet.Repository;
+using VehiclesFleet.Repository.Contracts;
+using VehiclesFleet.Repository.Contracts.Mappers;
+using VehiclesFleet.Repository.Mappers;
+using VehiclesFleet.Services;
+using VehiclesFleet.Services.Contracts;
 
-namespace VechiclesFleet.DI;
+namespace VehiclesFleet.DI;
 
 public static class DependencyResolver
 {
@@ -28,16 +33,20 @@ public static class DependencyResolver
             });
         RegisterSwaggerWithAuthorization(services);
         services.AddSingleton<IAppSettingsReader, AppSettingsReader>();
+        services.AddSingleton<IJwtService, JwtService>();
         services.AddSingleton<ILoggerService, LoggerService>();
+        services.AddSingleton<IUserMapper, UserMapper>();
         // services.AddSingleton<IAuthorizationService, AuthorizationService>();
 
-        // services.AddScoped<ICustomMonitorBusinessLogic, CustomMonitorBusinessLogic>();
+        services.AddScoped<IUserBusinessLogic, UserBusinessLogic>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddDbContext<DataContext>(options =>
             options.UseMySql(GetConnectionString(services),ServerVersion.AutoDetect(GetConnectionString(services))));
-
+        
         services.AddControllers();
-
+        
+        DoMigrations(services);
         return services;
     }
 
@@ -79,7 +88,18 @@ public static class DependencyResolver
             });
         });
     }
-    
+
+    private static void DoMigrations(IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        using (var scope = serviceProvider.CreateScope())
+        {
+            var servicesproviders = scope.ServiceProvider;
+
+            var context = servicesproviders.GetRequiredService<DataContext>();
+            context.Database.Migrate();
+        }
+    }
     private static IConfigurationRoot LoadConfiguration()
     {
         var builder = new ConfigurationBuilder()
