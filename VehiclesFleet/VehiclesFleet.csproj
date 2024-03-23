@@ -2,9 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
+        <Nullable>annotations</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+        <RootNamespace>VechiclesFleet</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,7 +20,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\VechiclesFleet.DI\VechiclesFleet.DI.csproj" />
+      <ProjectReference Include="..\VehiclesFleet.DI\VehiclesFleet.DI.csproj" />
+      <ProjectReference Include="..\VehiclesFleet.Domain\VehiclesFleet.Domain.csproj" />
+      <ProjectReference Include="..\VehiclesFleet.Services\VehiclesFleet.Services.csproj" />
     </ItemGroup>
 
 </Project>

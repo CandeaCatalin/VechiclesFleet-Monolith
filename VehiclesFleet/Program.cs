@@ -3,17 +3,14 @@ using VechiclesFleet.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddControllers();
 builder.Services.AddDependencies();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
 
 app.UseHttpsRedirection();
 app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true).AllowCredentials());
