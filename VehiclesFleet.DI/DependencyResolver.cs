@@ -1,13 +1,18 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using VehiclesFleet.BusinessLogic;
 using VehiclesFleet.BusinessLogic.Contracts;
 using VehiclesFleet.Constants;
 using VehiclesFleet.DataAccess;
+using VehiclesFleet.DataAccess.Entities;
 using VehiclesFleet.Repository;
 using VehiclesFleet.Repository.Contracts;
 using VehiclesFleet.Repository.Contracts.Mappers;
@@ -40,12 +45,11 @@ public static class DependencyResolver
 
         services.AddScoped<IUserBusinessLogic, UserBusinessLogic>();
         services.AddScoped<IUserRepository, UserRepository>();
+        AddDataServices(services);
 
-        services.AddDbContext<DataContext>(options =>
-            options.UseMySql(GetConnectionString(services),ServerVersion.AutoDetect(GetConnectionString(services))));
-        
         services.AddControllers();
-        
+
+        AddAuthorization(services);
         DoMigrations(services);
         return services;
     }
@@ -56,11 +60,28 @@ public static class DependencyResolver
         var appReader = serviceProvider.GetService<IAppSettingsReader>();
         return appReader.GetValue(AppSettingsConstants.Section.Database, AppSettingsConstants.Keys.ConnectionString);
     }
+
+    private static void AddDataServices(this IServiceCollection services)
+    {
+        services.AddDbContext<DataContext>(options =>
+            options.UseSqlServer(GetConnectionString(services), b => b.MigrationsAssembly("VehiclesFleet.DataAccess")));
+
+        services.AddIdentity<User, IdentityRole>(o =>
+            {
+                o.Password.RequireDigit = true;
+                o.Password.RequireLowercase = true;
+                o.Password.RequireUppercase = true;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 8;
+            }).AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
+    }
+
     private static void RegisterSwaggerWithAuthorization(IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo {Title = "Vehicles Fleet API", Version = "v1"});
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vehicles Fleet API", Version = "v1" });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
@@ -100,6 +121,7 @@ public static class DependencyResolver
             context.Database.Migrate();
         }
     }
+
     private static IConfigurationRoot LoadConfiguration()
     {
         var builder = new ConfigurationBuilder()
@@ -108,5 +130,35 @@ public static class DependencyResolver
 
         var configuration = builder.Build();
         return configuration;
+    }
+
+    private static void AddAuthorization(IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        var appReader = serviceProvider.GetService<IAppSettingsReader>();
+        string secretKey = appReader.GetValue(AppSettingsConstants.Section.Authorization,
+            AppSettingsConstants.Keys.JwtSecretKey);
+
+
+        var key = Encoding.UTF8.GetBytes(secretKey);
+        services.AddAuthentication(x =>
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(x =>
+        {
+            x.SaveToken = true;
+            x.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                RequireExpirationTime = false,
+                ValidateLifetime = true,
+            };
+
+        });
     }
 }

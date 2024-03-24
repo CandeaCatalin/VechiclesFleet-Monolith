@@ -32,12 +32,14 @@ public class IdentityController : ControllerBase
     
     [HttpGet("checkSession")]
     [Authorize]
-    public IActionResult CheckSession()
+    public  IActionResult CheckSession()
     {
         return Ok();
     }
 
     [HttpGet("GetAllUsers")]
+    
+    [Authorize]
     public async Task<IActionResult> GetAllUsers()
     {
         var allUsersList = await userBusinessLogic.GetAllUsers();
