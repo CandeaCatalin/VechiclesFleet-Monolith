@@ -4,5 +4,6 @@ namespace VehiclesFleet.Services.Contracts;
 
 public interface IJwtService
 {
-     string GenerateToken(User existingUser, IList<string> roles);
+     string GenerateToken(User existingUser);
+     string GetUserEmailFromToken(string token);
 }

@@ -14,6 +14,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\VehiclesFleet.DataAccess\VehiclesFleet.DataAccess.csproj" />
+      <ProjectReference Include="..\VehiclesFleet.Domain\VehiclesFleet.Domain.csproj" />
       <ProjectReference Include="..\VehiclesFleet.Settings\VehiclesFleet.Settings.csproj" />
     </ItemGroup>
 

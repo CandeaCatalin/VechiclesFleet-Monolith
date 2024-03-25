@@ -12,6 +12,7 @@ public class UserMapper : IUserMapper
         {
             Email = user.Email,
             Name = user.Name,
+            CreatedAtTimeUtc = user.CreatedAtTimeUtc
         };
     }
 }

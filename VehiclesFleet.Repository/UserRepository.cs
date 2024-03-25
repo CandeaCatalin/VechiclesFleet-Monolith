@@ -28,8 +28,7 @@ public class UserRepository : IUserRepository
                 throw new Exception("Invalid credentials!");
             }
             await CheckIfPwdsMatchesAsync(existingUser, loginDto.Password);
-            var roles = await userManager.GetRolesAsync(existingUser);
-            var tokenAsString = jwtService.GenerateToken(existingUser, roles);
+            var tokenAsString = jwtService.GenerateToken(existingUser);
             return tokenAsString;
         }
 
@@ -40,7 +39,8 @@ public class UserRepository : IUserRepository
                 Name = registerDto.Name,
                 Email = registerDto.Email,
                 EmailConfirmed = true,
-                UserName = registerDto.Email
+                UserName = registerDto.Email,
+                CreatedAtTimeUtc = DateTime.Now
             };
             var addResult = await userManager.CreateAsync(newUser, registerDto.Password);
             if (addResult.Errors.Count() != 0)
@@ -66,12 +66,6 @@ public class UserRepository : IUserRepository
             var domainUsers = new List<Domain.Models.User>();
             foreach(var user in allUsers)
             {
-                var roles = await userManager.GetRolesAsync(user);
-                string role = "User";
-                if(roles.Count != 0)
-                {
-                    role = roles[0];
-                }
                 domainUsers.Add(userMapper.DataAccessToDomain(user));
             }
             return domainUsers;

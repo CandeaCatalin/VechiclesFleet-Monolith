@@ -2,8 +2,12 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http.Extensions;
+using VehiclesFleet.BusinessLogic.Contracts;
 using VehiclesFleet.Domain.CustomExceptions;
+using VehiclesFleet.Domain.Models;
 using VehiclesFleet.Services.Contracts;
+using VehiclesFleet.Services.Contracts.Logger;
+using LoggerMessage = VehiclesFleet.Domain.Models.LoggerMessage;
 
 namespace VehiclesFleet.Middleware;
 
@@ -57,17 +61,17 @@ public class ExceptionHandlerMiddleware
     private async Task LogErrorWithRequestInput(HttpContext context, Exception ex)
     {
         var result = new StringBuilder();
-
+       
         result.AppendLine($"Message: {ex.Message}");
 
         result.AppendLine($"URL: {context.Request.GetEncodedUrl()}");
 
         result.AppendLine("Headers: ");
         foreach (var (key, value) in context.Request.GetTypedHeaders().Headers)
-        {
+        { 
             result.AppendLine($"{key}: {value}");
         }
-
+        
         result.AppendLine("Body: ");
         using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8, true, 1024, true))
         {
@@ -76,6 +80,9 @@ public class ExceptionHandlerMiddleware
 
         result.AppendLine($"Exception: {ex}");
 
-        await loggerService.LogError(result.ToString());
+        await loggerService.LogError(new LoggerMessage
+        {
+            Message = result.ToString()
+        });
     }
 }

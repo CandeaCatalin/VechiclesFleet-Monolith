@@ -6,9 +6,6 @@ namespace VehiclesFleet.DataAccess;
 
 public class DataContext : IdentityDbContext<User>
 {
-    public DataContext()
-    {
-    }
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
     }
@@ -25,6 +22,6 @@ public class DataContext : IdentityDbContext<User>
     //    //     .IsRequired();
     //}
 
-    // public DbSet<Invoice> Invoices { get; set; }
+    public DbSet<Log> Logs { get; set; }
     // public DbSet<InvoiceLine> InvoiceLines { get; set; }
 }

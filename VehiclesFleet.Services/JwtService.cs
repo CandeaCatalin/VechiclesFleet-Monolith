@@ -17,10 +17,10 @@ public class JwtService: IJwtService
         this.appSettingsReader = appSettingsReader;
     }
     
-    public string GenerateToken(User existingUser, IList<string> roles)
+    public string GenerateToken(User existingUser)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var claims = GenerateClaims(existingUser, roles);
+        var claims = GenerateClaims(existingUser);
         var tokenDescriptor = GenerateTokenDescriptor(claims);
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
@@ -38,7 +38,7 @@ public class JwtService: IJwtService
         };
         return tokenDescriptor;
     }
-    private static List<Claim> GenerateClaims(User existingUser, IList<string> roles)
+    private static List<Claim> GenerateClaims(User existingUser)
     {
         var claims = new List<Claim>
         {
@@ -47,11 +47,22 @@ public class JwtService: IJwtService
             new(ClaimTypes.Name, existingUser.Name)
                
         };
-            
-        foreach (var role in roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role));
-        }
+        
         return claims;
+    }
+
+    public string GetUserEmailFromToken(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+        if (jwtToken == null)
+        {
+            throw new ArgumentException("Invalid JWT token");
+        }
+
+        var claim = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Email);
+
+        return claim?.Value;
     }
 }

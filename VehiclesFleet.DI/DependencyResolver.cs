@@ -19,6 +19,8 @@ using VehiclesFleet.Repository.Contracts.Mappers;
 using VehiclesFleet.Repository.Mappers;
 using VehiclesFleet.Services;
 using VehiclesFleet.Services.Contracts;
+using VehiclesFleet.Services.Contracts.Logger;
+using VehiclesFleet.Services.Logger;
 
 namespace VehiclesFleet.DI;
 
@@ -27,6 +29,7 @@ public static class DependencyResolver
     public static IServiceCollection AddDependencies(this IServiceCollection services)
     {
         var configurationRoot = LoadConfiguration();
+
         services.AddSingleton(configurationRoot);
         services
             .AddControllers()
@@ -36,20 +39,22 @@ public static class DependencyResolver
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.JsonSerializerOptions.WriteIndented = true;
             });
+
         RegisterSwaggerWithAuthorization(services);
         services.AddSingleton<IAppSettingsReader, AppSettingsReader>();
         services.AddSingleton<IJwtService, JwtService>();
-        services.AddSingleton<ILoggerService, LoggerService>();
         services.AddSingleton<IUserMapper, UserMapper>();
+        services.AddSingleton<ILoggerMapper, LoggerMapper>();
+        services.AddSingleton<ILoggerService, LoggerService>();
         // services.AddSingleton<IAuthorizationService, AuthorizationService>();
 
         services.AddScoped<IUserBusinessLogic, UserBusinessLogic>();
         services.AddScoped<IUserRepository, UserRepository>();
-        AddDataServices(services);
-
+        
         services.AddControllers();
-
+        
         AddAuthorization(services);
+        AddDataServices(services);
         DoMigrations(services);
         return services;
     }
@@ -61,7 +66,7 @@ public static class DependencyResolver
         return appReader.GetValue(AppSettingsConstants.Section.Database, AppSettingsConstants.Keys.ConnectionString);
     }
 
-    private static void AddDataServices(this IServiceCollection services)
+    public static void AddDataServices(this IServiceCollection services)
     {
         services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(GetConnectionString(services), b => b.MigrationsAssembly("VehiclesFleet.DataAccess")));
@@ -102,7 +107,7 @@ public static class DependencyResolver
                         },
                         Scheme = "Bearer",
                         Name = "Bearer",
-                        In = ParameterLocation.Header,
+                        In = ParameterLocation.Header
                     },
                     new List<string>()
                 }
@@ -156,7 +161,7 @@ public static class DependencyResolver
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 RequireExpirationTime = false,
-                ValidateLifetime = true,
+                ValidateLifetime = true
             };
 
         });
