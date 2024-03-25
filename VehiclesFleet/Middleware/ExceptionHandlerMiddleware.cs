@@ -2,10 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http.Extensions;
-using VehiclesFleet.BusinessLogic.Contracts;
 using VehiclesFleet.Domain.CustomExceptions;
-using VehiclesFleet.Domain.Models;
-using VehiclesFleet.Services.Contracts;
 using VehiclesFleet.Services.Contracts.Logger;
 using LoggerMessage = VehiclesFleet.Domain.Models.LoggerMessage;
 

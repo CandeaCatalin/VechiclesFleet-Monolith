@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using VehiclesFleet.Domain.Models;
 
 namespace VehiclesFleet.DataAccess.Entities;
 
