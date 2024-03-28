@@ -1,6 +1,7 @@
 ﻿using VehiclesFleet.BusinessLogic.Contracts;
 using VehiclesFleet.Domain.Dtos.IdentityControllerDtos;
-using VehiclesFleet.Domain.Models;
+using VehiclesFleet.Domain.Models.Identity;
+using VehiclesFleet.Domain.Models.Logger;
 using VehiclesFleet.Repository.Contracts;
 using VehiclesFleet.Services.Contracts.Logger;
 

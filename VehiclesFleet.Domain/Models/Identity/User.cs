@@ -1,4 +1,4 @@
-﻿namespace VehiclesFleet.Domain.Models;
+﻿namespace VehiclesFleet.Domain.Models.Identity;
 
 public class User
 {

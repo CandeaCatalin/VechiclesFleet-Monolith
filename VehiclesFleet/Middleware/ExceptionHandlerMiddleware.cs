@@ -4,7 +4,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Http.Extensions;
 using VehiclesFleet.Domain.CustomExceptions;
 using VehiclesFleet.Services.Contracts.Logger;
-using LoggerMessage = VehiclesFleet.Domain.Models.LoggerMessage;
+using LoggerMessage = VehiclesFleet.Domain.Models.Logger.LoggerMessage;
 
 namespace VehiclesFleet.Middleware;
 

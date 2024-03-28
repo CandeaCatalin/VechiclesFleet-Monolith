@@ -4,5 +4,5 @@ namespace VehiclesFleet.Repository.Contracts.Mappers;
 
 public interface IUserMapper
 {
-    public Domain.Models.User DataAccessToDomain(User user);
+    public Domain.Models.Identity.User DataAccessToDomain(User user);
 }

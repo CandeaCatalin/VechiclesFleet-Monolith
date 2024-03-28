@@ -40,7 +40,7 @@ public class UserRepository : IUserRepository
                 Email = registerDto.Email,
                 EmailConfirmed = true,
                 UserName = registerDto.Email,
-                CreatedAtTimeUtc = DateTime.Now
+                CreatedAtTimeUtc = DateTime.Now,
             };
             var addResult = await userManager.CreateAsync(newUser, registerDto.Password);
             if (addResult.Errors.Count() != 0)
@@ -60,10 +60,10 @@ public class UserRepository : IUserRepository
                 throw new Exception("Invalid credentials!");
         }
         
-        public async Task<List<Domain.Models.User>> GetAllUsers()
+        public async Task<List<Domain.Models.Identity.User>> GetAllUsers()
         {
             var allUsers = await userManager.Users.ToListAsync();
-            var domainUsers = new List<Domain.Models.User>();
+            var domainUsers = new List<Domain.Models.Identity.User>();
             foreach(var user in allUsers)
             {
                 domainUsers.Add(userMapper.DataAccessToDomain(user));

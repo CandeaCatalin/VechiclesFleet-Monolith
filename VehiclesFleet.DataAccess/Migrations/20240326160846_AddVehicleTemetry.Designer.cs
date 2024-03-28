@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesFleet.DataAccess;
 
@@ -11,9 +12,11 @@ using VehiclesFleet.DataAccess;
 namespace VehiclesFleet.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240326160846_AddVehicleTemetry")]
+    partial class AddVehicleTemetry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,9 +242,6 @@ namespace VehiclesFleet.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<Guid?>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -252,10 +252,6 @@ namespace VehiclesFleet.DataAccess.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("VehicleId")
-                        .IsUnique()
-                        .HasFilter("[VehicleId] IS NOT NULL");
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -264,6 +260,10 @@ namespace VehiclesFleet.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AssignedUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -290,9 +290,6 @@ namespace VehiclesFleet.DataAccess.Migrations
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Year")
                         .IsRequired()
@@ -417,15 +414,6 @@ namespace VehiclesFleet.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VehiclesFleet.DataAccess.Entities.User", b =>
-                {
-                    b.HasOne("VehiclesFleet.DataAccess.Entities.Vehicle", "Vehicle")
-                        .WithOne("User")
-                        .HasForeignKey("VehiclesFleet.DataAccess.Entities.User", "VehicleId");
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("VehiclesFleet.DataAccess.Entities.VehicleError", b =>
                 {
                     b.HasOne("VehiclesFleet.DataAccess.Entities.Vehicle", "Vehicle")
@@ -451,9 +439,6 @@ namespace VehiclesFleet.DataAccess.Migrations
             modelBuilder.Entity("VehiclesFleet.DataAccess.Entities.Vehicle", b =>
                 {
                     b.Navigation("Errors");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

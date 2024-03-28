@@ -1,5 +1,5 @@
 using VehiclesFleet.Domain.Dtos.IdentityControllerDtos;
-using VehiclesFleet.Domain.Models;
+using VehiclesFleet.Domain.Models.Identity;
 
 namespace VehiclesFleet.BusinessLogic.Contracts;
 

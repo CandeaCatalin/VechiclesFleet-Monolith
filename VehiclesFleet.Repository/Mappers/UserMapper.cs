@@ -1,5 +1,4 @@
-﻿                          
-using VehiclesFleet.Domain.Models;
+﻿using VehiclesFleet.Domain.Models.Identity;
 using VehiclesFleet.Repository.Contracts.Mappers;
 
 namespace VehiclesFleet.Repository.Mappers;

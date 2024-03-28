@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using VehiclesFleet.DataAccess;
-using VehiclesFleet.Domain.Models;
+using VehiclesFleet.Domain.Models.Logger;
 using VehiclesFleet.Services.Contracts;
 using VehiclesFleet.Services.Contracts.Logger;
 

@@ -1,5 +1,5 @@
 using VehiclesFleet.DataAccess.Entities;
-using VehiclesFleet.Domain.Models;
+using VehiclesFleet.Domain.Models.Logger;
 using VehiclesFleet.Services.Contracts.Logger;
 
 namespace VehiclesFleet.Services.Logger;

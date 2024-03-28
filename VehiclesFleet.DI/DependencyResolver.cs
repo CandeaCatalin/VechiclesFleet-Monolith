@@ -45,11 +45,15 @@ public static class DependencyResolver
         services.AddSingleton<IJwtService, JwtService>();
         services.AddSingleton<IUserMapper, UserMapper>();
         services.AddSingleton<ILoggerMapper, LoggerMapper>();
+        services.AddSingleton<IVehicleMapper, VehicleMapper>();
         services.AddSingleton<ILoggerService, LoggerService>();
         // services.AddSingleton<IAuthorizationService, AuthorizationService>();
 
         services.AddScoped<IUserBusinessLogic, UserBusinessLogic>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IVehicleBusinessLogic, VehicleBusinessLogic>();
+        services.AddScoped<IVehicleRepository, VehicleRepository>();
         
         services.AddControllers();
         

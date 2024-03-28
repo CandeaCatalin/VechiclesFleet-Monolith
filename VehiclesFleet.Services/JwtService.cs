@@ -44,8 +44,8 @@ public class JwtService: IJwtService
         {
             new(JwtRegisteredClaimNames.Sub, existingUser.Id),
             new(JwtRegisteredClaimNames.Email, existingUser.Email),
-            new(ClaimTypes.Name, existingUser.Name)
-               
+            new(ClaimTypes.Name, existingUser.Name),
+            new("VehicleId",existingUser.VehicleId.ToString())
         };
         
         return claims;
