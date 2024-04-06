@@ -48,6 +48,8 @@ public static class DependencyResolver
         services.AddSingleton<IVehicleMapper, VehicleMapper>();
         services.AddSingleton<ITelemetryMapper, TelemetryMapper>();
         services.AddSingleton<ILoggerService, LoggerService>();
+        
+        services.AddSingleton<IAnalysisService, AnalysisService>();
 
         services.AddScoped<IUserBusinessLogic, UserBusinessLogic>();
         services.AddScoped<IUserRepository, UserRepository>();

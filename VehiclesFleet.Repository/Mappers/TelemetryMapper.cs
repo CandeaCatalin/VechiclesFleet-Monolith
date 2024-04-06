@@ -16,7 +16,8 @@ public class TelemetryMapper:ITelemetryMapper
             Latitude = telemetry.Latitude,
             Longitude = telemetry.Longitude,
             Fuel = telemetry.Fuel,
-            TirePressure = telemetry.TirePressure
+            TirePressure = telemetry.TirePressure,
+            CreateAt = DateTime.Now
         };
     }
 }

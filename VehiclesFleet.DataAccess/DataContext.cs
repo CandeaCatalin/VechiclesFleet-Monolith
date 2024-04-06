@@ -20,6 +20,7 @@ public class DataContext : IdentityDbContext<User>
 
     public DbSet<Log> Logs { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<VehicleAnalysis> VehiclesAnalysis { get; set; }
     public DbSet<VehicleError> VehiclesErrors { get; set; }
     public DbSet<VehicleTelemetry> VehicleTelemetries { get; set; }
 }

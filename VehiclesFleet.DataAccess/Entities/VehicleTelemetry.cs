@@ -11,4 +11,5 @@ public class VehicleTelemetry
     public decimal Longitude { get; set; }
     public decimal Fuel { get; set; }
     public float TirePressure { get; set; }
+    public DateTime CreateAt { get; set; }
 }
