@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using VehiclesFleet.BusinessLogic.Contracts;
 using VehiclesFleet.Domain.Dtos.VehicleControllerDtos;
 
 namespace VehiclesFleet.Controllers;
-
+[ApiController]
+[Route("vehicleManagement")]
+[Authorize]
 public class VehicleController: ControllerBase
 {
     private readonly IVehicleBusinessLogic vehicleBusinessLogic;

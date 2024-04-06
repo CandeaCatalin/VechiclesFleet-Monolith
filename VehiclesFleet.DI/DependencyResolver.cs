@@ -46,6 +46,7 @@ public static class DependencyResolver
         services.AddSingleton<IUserMapper, UserMapper>();
         services.AddSingleton<ILoggerMapper, LoggerMapper>();
         services.AddSingleton<IVehicleMapper, VehicleMapper>();
+        services.AddSingleton<IAnalysisMapper, AnalysisMapper>();
         services.AddSingleton<ITelemetryMapper, TelemetryMapper>();
         services.AddSingleton<ILoggerService, LoggerService>();
         
@@ -58,11 +59,13 @@ public static class DependencyResolver
         services.AddScoped<IVehicleRepository, VehicleRepository>();
         services.AddScoped<ITelemetryBusinessLogic, TelemetryBusinessLogic>();
         services.AddScoped<ITelemetryRepository, TelemetryRepository>();
+         services.AddScoped<IAnalyticsBusinessLogic, AnalyticsBusinessLogic>();
+        services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
         
         services.AddControllers();
         
-        AddAuthorization(services);
         AddDataServices(services);
+        AddAuthorization(services);
         DoMigrations(services);
         return services;
     }
@@ -79,7 +82,7 @@ public static class DependencyResolver
         services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(GetConnectionString(services), b => b.MigrationsAssembly("VehiclesFleet.DataAccess")));
 
-        services.AddIdentity<User, IdentityRole>(o =>
+        services.AddIdentityCore<User>(o =>
             {
                 o.Password.RequireDigit = true;
                 o.Password.RequireLowercase = true;

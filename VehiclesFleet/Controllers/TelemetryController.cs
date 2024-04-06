@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using VehiclesFleet.BusinessLogic.Contracts;
@@ -7,6 +8,7 @@ namespace VehiclesFleet.Controllers;
 
 [ApiController]
 [Route("telemetry")]
+[Authorize]
 public class TelemetryController: ControllerBase
 {
     private readonly ITelemetryBusinessLogic telemetryBusinessLogic;
