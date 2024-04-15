@@ -1,14 +1,14 @@
 ﻿version: '3.8'
 
 services:
-  skyjetter:
+  vehiclesFleetMonolith:
     image: vehiclesfleet
     build:
       context: .
       dockerfile: VehiclesFleet/Dockerfile
     ports:
       - "81:80"
-      - "3001:443"
+      - "3005:443"
     depends_on:
       - database
   database:

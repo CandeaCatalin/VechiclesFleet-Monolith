@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using VehiclesFleet.DataAccess;
 using VehiclesFleet.Domain.Models.Vehicle;
 using VehiclesFleet.Repository.Contracts;
