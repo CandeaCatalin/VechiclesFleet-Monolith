@@ -7,8 +7,7 @@ services:
       context: .
       dockerfile: VehiclesFleet/Dockerfile
     ports:
-      - "81:80"
-      - "3005:443"
+      - "3010:80"
     depends_on:
       - database
   database:
